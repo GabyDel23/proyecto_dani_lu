@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{super() }} Index
+{% endblock %}
+
+{% block usuario %}
+{{session['nombre']}}
+{% endblock %}
+
+{% block content %}
+
+<style>
+  body{
+      background:url(../static/1.jpeg);
+      background-position: center;
+      background-size: cover;
+  }
+
+</style>
+<br>
+<div class="container">
+    <form method="post">
+        <input type="text" name="name">
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+</div>
+
+<br>
+<div class="container">
+    <table class="table table-striped">
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+        {% for todo in lista_tareas %}
+        <tr>
+          <td>{{todo.id}}</td>
+          <td>{{todo.nombre}}</td>
+          <td>{{todo.estado}}</td>
+          <td>
+            <a href="{{ url_for('update_task', id=todo.id)  }}">
+                <button type="button" class="btn btn-success">Cambiar Estado</button>
+            </a>
+            <a href="{{ url_for('delete_task', id=todo.id)  }}">
+                <button type="button" class="btn btn-danger">Eliminar</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+</div>
+{% endblock %}
